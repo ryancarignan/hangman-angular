@@ -1,44 +1,50 @@
 <router-outlet></router-outlet>
 
-<h1>Hangman</h1>
+<div class="outer-flex-div">
+  <div class="inner-flex-div-1">
+    <h1>Hangman</h1>
 
-<div>
-  @if (gameWon()) {
-    <h3>You won!</h3>
-  } @else if (wrongGuessCount() > 5) {
-    <h3>You lost! ):</h3>
-  } @else {
-    <h3>Game in progress...</h3>
-  }
+    <div>
+      @if (gameWon()) {
+        <h3>You won!</h3>
+      } @else if (wrongGuessCount() > 5) {
+        <h3>You lost! ):</h3>
+      } @else {
+        <h3>Game in progress...</h3>
+      }
+    </div>
+
+    <div>
+      <button id="new-game" (click)="newGame()">New Game</button>
+    </div>
+  </div>
+
+  <div class="inner-flex-div-2">
+    <div>
+      <label for="guess-input">Guess: </label>
+      <input type="text" id="guess-input" [disabled]="gameWon() || wrongGuessCount() > 5">
+      <button id="guess-submit" (click)="submitGuess()" [disabled]="gameWon() || wrongGuessCount() > 5">Submit Guess</button>
+    </div>
+
+    <div>
+      <label for="full-guess-input">Guess Full Phrase: </label>
+      <input type="text" id="full-guess-input" [disabled]="gameWon() || wrongGuessCount() > 5">
+      <button id="full-guess-submit" (click)="submitFullGuess()" [disabled]="gameWon() || wrongGuessCount() > 5">Submit Full Guess</button>
+    </div>
+
+    <h3>{{blank}}</h3>
+
+    <div>
+      <h3>Previous Guesses: </h3>
+      <ul class="prev-guesses">
+        @for (letter of guesses; track letter) {
+          <li>{{letter}}</li>
+        } @empty {
+          <li>Make a guess above!</li>
+        }
+      </ul>
+    </div>
+  </div>
+
+  <img src="hangman-img-{{wrongGuessCount()}}.png" alt="hangman image">
 </div>
-
-<div>
-  <button id="new-game" (click)="newGame()">New Game</button>
-</div>
-
-<div>
-  <label for="guess-input">Guess: </label>
-  <input type="text" id="guess-input" [disabled]="gameWon() || wrongGuessCount() > 5">
-  <button id="guess-submit" (click)="submitGuess()" [disabled]="gameWon() || wrongGuessCount() > 5">Submit Guess</button>
-</div>
-
-<div>
-  <label for="full-guess-input">Guess Full Phrase: </label>
-  <input type="text" id="full-guess-input" [disabled]="gameWon() || wrongGuessCount() > 5">
-  <button id="full-guess-submit" (click)="submitFullGuess()" [disabled]="gameWon() || wrongGuessCount() > 5">Submit Full Guess</button>
-</div>
-
-<h3>{{blank}}</h3>
-
-<div>
-  <h3>Previous Guesses: </h3>
-  <ul class="prev-guesses">
-    @for (letter of guesses; track letter) {
-      <li>{{letter}}</li>
-    } @empty {
-      <li>Make a guess above!</li>
-    }
-  </ul>
-</div>
-
-<img src="hangman-img-{{wrongGuessCount()}}.png" alt="hangman image">

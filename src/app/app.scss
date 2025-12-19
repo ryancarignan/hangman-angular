@@ -1,8 +1,39 @@
 :host {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
+  .outer-flex-div {
+    * {
+      margin: 0px;
+    }
+    img {
+      --img-size: 50vw;
+      height: var(--img-size);
+      width: var(--img-size);
+    }
+    #guess-input {
+      width: 2ch;
+    }
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 90vh;
+    width: 100vw;
+    padding-block: 1rem;
+    margin: 0px;
+
+    .inner-flex-div-1 {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      height: 5.5rem;
+    }
+
+    .inner-flex-div-2 {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      height: 10rem;
+    }
+  }
 }
