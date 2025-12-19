@@ -10,10 +10,15 @@ import { RouterOutlet } from '@angular/router';
 export class App {
   protected readonly title = signal('hangman');
 
+  // letters that have been guessed
   guesses!: string[];
+  // how many incorrect guesses there have been 
   wrongGuessCount!: WritableSignal<number>;
+  // if the game has been won or not
   gameWon!: WritableSignal<boolean>;
+  // the solution phrase
   answer!: string;
+  // the current known phrase, with '_' in place of unknowns
   blank!: string;
 
   constructor() {}
@@ -38,8 +43,9 @@ export class App {
     }
   }
 
+  // handles button press of submitting a full phrase guess
   submitFullGuess() {
-    const guess = (document.getElementById('full-guess-input') as HTMLInputElement).value;
+    const guess = (document.getElementById('full-guess-input') as HTMLInputElement).value.toLowerCase();
     if (guess === this.answer) {
       this.blank = this.answer;
       this.gameWon.set(true);
@@ -50,7 +56,7 @@ export class App {
 
   // handles button press of submitting a guess
   submitGuess() {
-    const guess = (document.getElementById('guess-input') as HTMLInputElement).value;
+    const guess = (document.getElementById('guess-input') as HTMLInputElement).value.toLowerCase();
     if (guess.length > 0 && // invalid guesses ignored
       guess.length <= 1 && 
       !this.guesses.includes(guess) && 

@@ -2,6 +2,7 @@
   .outer-flex-div {
     * {
       margin: 0px;
+      font-family: var(--font-family);
     }
     img {
       --img-size: 50vw;
@@ -11,6 +12,10 @@
     #guess-input {
       width: 2ch;
     }
+    input {
+      font-weight: 900;
+    }
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -19,6 +24,9 @@
     width: 100vw;
     padding-block: 1rem;
     margin: 0px;
+
+    --font-family: 'Courier New', Courier, monospace;
+    font-family: var(--font-family);
 
     .inner-flex-div-1 {
       display: flex;
@@ -34,6 +42,15 @@
       justify-content: space-between;
       align-items: center;
       height: 10rem;
+
+      ul {
+        list-style-type: none;
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        margin: 0px; 
+        padding: 0px;
+      }
     }
   }
 }
