@@ -1,1 +1,38 @@
 <router-outlet></router-outlet>
+
+<h1>Hangman</h1>
+
+<div>
+  @if (gameWon()) {
+    <h3>You won!</h3>
+  } @else if (wrongGuessCount() > 5) {
+    <h3>You lost...</h3>
+  } @else {
+    <h3> </h3>
+  }
+</div>
+
+<div>
+  <button id="new-game" (click)="newGame()">New Game</button>
+</div>
+
+<div>
+  <label for="guess-input">Guess: </label>
+  <input type="text" id="guess-input" [disabled]="gameWon() || wrongGuessCount() > 5">
+  <button id="guess-submit" (click)="submitGuess()" [disabled]="gameWon() || wrongGuessCount() > 5">Submit Guess</button>
+</div>
+
+<h3>{{blank}}</h3>
+
+<div>
+  <h3>Previous Guesses: </h3>
+  <ul class="prev-guesses">
+    @for (letter of guesses; track letter) {
+      <li>{{letter}}</li>
+    } @empty {
+      <li>Make a guess above!</li>
+    }
+  </ul>
+</div>
+
+<img src="hangman-img-{{wrongGuessCount()}}.png" alt="hangman image">
