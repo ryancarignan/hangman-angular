@@ -44,6 +44,7 @@ export class App {
     if (guess.length > 0 && // invalid guesses ignored
       guess.length <= 1 && 
       !this.guesses.includes(guess) && 
+      ![...this.blank].includes(guess) &&
       guess != ' '
     ) {
       const ogBlank = this.blank; // JS strings are primatives :)
