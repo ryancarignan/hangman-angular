@@ -38,6 +38,16 @@ export class App {
     }
   }
 
+  submitFullGuess() {
+    const guess = (document.getElementById('full-guess-input') as HTMLInputElement).value;
+    if (guess === this.answer) {
+      this.blank = this.answer;
+      this.gameWon.set(true);
+    } else {
+      this.wrongGuessCount.update((curr: number) => ++curr);
+    }
+  }
+
   // handles button press of submitting a guess
   submitGuess() {
     const guess = (document.getElementById('guess-input') as HTMLInputElement).value;
