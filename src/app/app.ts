@@ -16,6 +16,8 @@ export class App {
   wrongGuessCount!: WritableSignal<number>;
   // if the game has been won or not
   gameWon!: WritableSignal<boolean>;
+  // all possible solution phrases that could be selected
+  possibleAnswers!: string[];
   // the solution phrase
   answer!: string;
   // the current known phrase, with '_' in place of unknowns
@@ -33,7 +35,20 @@ export class App {
     this.guesses = [];
     this.wrongGuessCount = signal<number>(0);
     this.gameWon = signal<boolean>(false);
-    this.answer = 'should change later'; // TODO change to random in list
+    this.possibleAnswers = [
+      'that old feeling',
+      'but not for me',
+      'time after time',
+      'i get along without you very well',
+      'there will never be another you',
+      'i fall in love too easily',
+      'my funny valentine',
+      'everything happens to me',
+      'it never entered my mind',
+      'these foolish things remind me of you',
+    ];
+    const rand = Math.floor(Math.random() * this.possibleAnswers.length)
+    this.answer = this.possibleAnswers[rand]
     this.blank = '';
     for (let i = 0; i < this.answer.length; i++) {
       if (this.answer.charAt(i) != ' ')
