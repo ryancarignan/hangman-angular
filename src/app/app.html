@@ -6,9 +6,9 @@
 
     <div>
       @if (gameWon()) {
-        <h3>You won!</h3>
+        <h3 style="color:green">You won!</h3>
       } @else if (wrongGuessCount() > 5) {
-        <h3>You lost! ):</h3>
+        <h3 style="color:red">You lost! ):</h3>
       } @else {
         <h3>Game in progress...</h3>
       }
@@ -22,13 +22,13 @@
   <div class="inner-flex-div-2">
     <div>
       <label for="guess-input">Guess: </label>
-      <input type="text" id="guess-input" [disabled]="gameWon() || wrongGuessCount() > 5">
+      <input [(ngModel)]="guess" type="text" id="guess-input" [disabled]="gameWon() || wrongGuessCount() > 5">
       <button id="guess-submit" (click)="submitGuess()" [disabled]="gameWon() || wrongGuessCount() > 5">Submit Guess</button>
     </div>
 
     <div>
       <label for="full-guess-input">Guess Full Phrase: </label>
-      <input type="text" id="full-guess-input" [disabled]="gameWon() || wrongGuessCount() > 5">
+      <input [(ngModel)]="fullGuess" type="text" id="full-guess-input" [disabled]="gameWon() || wrongGuessCount() > 5">
       <button id="full-guess-submit" (click)="submitFullGuess()" [disabled]="gameWon() || wrongGuessCount() > 5">Submit Full Guess</button>
     </div>
 

@@ -1,9 +1,10 @@
 import { Component, signal, WritableSignal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, FormsModule],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
@@ -22,6 +23,10 @@ export class App {
   answer!: string;
   // the current known phrase, with '_' in place of unknowns
   blank!: string;
+  // the current letter guess in the input field
+  guess!: string;
+  // the current full phrase guess in the input field
+  fullGuess!: string;
 
   constructor() {}
 
@@ -56,37 +61,41 @@ export class App {
       else 
         this.blank += ' ';
     }
+    this.guess = '';
+    this.fullGuess = '';
   }
 
   // handles button press of submitting a full phrase guess
   submitFullGuess() {
-    const guess = (document.getElementById('full-guess-input') as HTMLInputElement).value.toLowerCase();
-    if (guess === this.answer) {
+    // const guess = (document.getElementById('full-guess-input') as HTMLInputElement).value.toLowerCase();
+    if (this.fullGuess === this.answer) {
       this.blank = this.answer;
       this.gameWon.set(true);
     } else {
       this.wrongGuessCount.update((curr: number) => ++curr);
     }
+    this.fullGuess = '';
   }
 
   // handles button press of submitting a guess
   submitGuess() {
-    const guess = (document.getElementById('guess-input') as HTMLInputElement).value.toLowerCase();
-    if (guess.length > 0 && // invalid guesses ignored
-      guess.length <= 1 && 
-      !this.guesses.includes(guess) && 
-      ![...this.blank].includes(guess) &&
-      guess != ' '
+    // const guess = (document.getElementById('guess-input') as HTMLInputElement).value.toLowerCase();
+    if (this.guess.length > 0 && // invalid guesses ignored
+      this.guess.length <= 1 && 
+      !this.guesses.includes(this.guess) && 
+      ![...this.blank].includes(this.guess) &&
+      this.guess != ' '
     ) {
       const ogBlank = this.blank; // JS strings are primatives :)
-      this.checkGuess(guess);
+      this.checkGuess(this.guess);
       if (this.blank == ogBlank) {
         this.wrongGuessCount.update((curr: number) => ++curr); // no blanks revealed
-        this.guesses.push(guess);
+        this.guesses.push(this.guess);
       }
       if (this.blank == this.answer) { // all blanks revealed
         this.gameWon.set(true);
       }
+      this.guess = '';
     }
   }
 
