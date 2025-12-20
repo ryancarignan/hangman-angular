@@ -67,7 +67,7 @@ export class App {
 
   // handles button press of submitting a full phrase guess
   submitFullGuess() {
-    // const guess = (document.getElementById('full-guess-input') as HTMLInputElement).value.toLowerCase();
+    this.fullGuess = this.fullGuess.toLowerCase();
     if (this.fullGuess === this.answer) {
       this.blank = this.answer;
       this.gameWon.set(true);
@@ -79,7 +79,7 @@ export class App {
 
   // handles button press of submitting a guess
   submitGuess() {
-    // const guess = (document.getElementById('guess-input') as HTMLInputElement).value.toLowerCase();
+    this.guess = this.guess.toLowerCase();
     if (this.guess.length > 0 && // invalid guesses ignored
       this.guess.length <= 1 && 
       !this.guesses.includes(this.guess) && 
